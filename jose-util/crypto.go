@@ -27,7 +27,7 @@ func encrypt() {
 
 	alg := jose.KeyAlgorithm(*encryptAlgFlag)
 	enc := jose.ContentEncryption(*encryptEncFlag)
-	kty := jose.ContentType(*encryptConentTypeFlag)
+	kty := jose.ContentType(*encryptKtyFlag)
 	var opt jose.EncrypterOptions
 
 	crypter, err := jose.NewEncrypter(enc, jose.Recipient{Algorithm: alg, Key: pub}, opt.WithContentType(kty))
