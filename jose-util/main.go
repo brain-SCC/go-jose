@@ -38,10 +38,11 @@ var (
 	outFile = app.Flag("out", "Path to output file (if applicable, stdout if missing)").ExistingFile()
 
 	// Encrypt
-	encryptCommand  = app.Command("encrypt", "Encrypt a plaintext, output ciphertext")
-	encryptAlgFlag  = encryptCommand.Flag("alg", "Key management algorithm (e.g. RSA-OAEP)").Required().String()
-	encryptEncFlag  = encryptCommand.Flag("enc", "Content encryption algorithm (e.g. A128GCM)").Required().String()
-	encryptFullFlag = encryptCommand.Flag("full", "Use JSON Serialization format (instead of compact)").Bool()
+	encryptCommand        = app.Command("encrypt", "Encrypt a plaintext, output ciphertext")
+	encryptAlgFlag        = encryptCommand.Flag("alg", "Key management algorithm (e.g. RSA-OAEP)").Required().String()
+	encryptEncFlag        = encryptCommand.Flag("enc", "Content encryption algorithm (e.g. A128GCM)").Required().String()
+	encryptFullFlag       = encryptCommand.Flag("full", "Use JSON Serialization format (instead of compact)").Bool()
+	encryptConentTypeFlag = encryptCommand.Flag("kty", "Content encryption type (e.g. text/plain)").Required().String()
 
 	// Decrypt
 	decryptCommand = app.Command("decrypt", "Decrypt a ciphertext, output plaintext")

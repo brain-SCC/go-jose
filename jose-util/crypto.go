@@ -27,8 +27,10 @@ func encrypt() {
 
 	alg := jose.KeyAlgorithm(*encryptAlgFlag)
 	enc := jose.ContentEncryption(*encryptEncFlag)
+	kty := jose.ContentType(*encryptConentTypeFlag)
+	var opt jose.EncrypterOptions
 
-	crypter, err := jose.NewEncrypter(enc, jose.Recipient{Algorithm: alg, Key: pub}, nil)
+	crypter, err := jose.NewEncrypter(enc, jose.Recipient{Algorithm: alg, Key: pub}, opt.WithContentType(kty))
 	app.FatalIfError(err, "unable to instantiate encrypter")
 
 	obj, err := crypter.Encrypt(readInput(*inFile))
