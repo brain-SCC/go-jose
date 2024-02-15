@@ -30,17 +30,19 @@ func encrypt() {
 	kty := jose.ContentType(*encryptKtyFlag)
 	var opt jose.EncrypterOptions
 
+	var opts = opt.WithContentType(kty)
+
 	switch encryptionKey := pub.(type) {
 	case jose.JSONWebKey:
-		opt.WithHeader("kid", encryptionKey.KeyID)
+		opts.WithHeader("kid", encryptionKey.KeyID)
 	case *jose.JSONWebKey:
-		opt.WithHeader("kid", encryptionKey.KeyID)
+		opts.WithHeader("kid", encryptionKey.KeyID)
 	case jose.OpaqueKeyEncrypter:
-		opt.WithHeader("kid", encryptionKey.KeyID())
+		opts = opts.WithHeader("kid", encryptionKey.KeyID())
 	default:
 	}
 
-	crypter, err := jose.NewEncrypter(enc, jose.Recipient{Algorithm: alg, Key: pub}, opt.WithContentType(kty))
+	crypter, err := jose.NewEncrypter(enc, jose.Recipient{Algorithm: alg, Key: pub}, opts)
 	app.FatalIfError(err, "unable to instantiate encrypter")
 
 	obj, err := crypter.Encrypt(readInput(*inFile))
