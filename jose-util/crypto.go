@@ -30,7 +30,7 @@ func encrypt() {
 	kty := jose.ContentType(*encryptKtyFlag)
 	var opt jose.EncrypterOptions
 
-	switch _ := pub.(type) {
+	switch v := pub.(type) {
 	case jose.JSONWebKey:
 		opt.WithHeader("kid", pub.KeyID)
 	}
