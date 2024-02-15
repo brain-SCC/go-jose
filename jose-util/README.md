@@ -32,6 +32,11 @@ Keys are specified via the `--key` flag. Supported key types are naked RSA/EC
 keys and X.509 certificates with embedded RSA/EC keys. Keys must be in PEM,
 DER or JWK formats.
 
+## Modifications
+
+We've added an `encrypt` flag  `--kty` to specify encrypted content. 
+If compact mode is detected, the additional header `zip` with value `DEF` is set.
+We not set `kid` header for JSONWebKey instances. 
 
 ## Testing
 
