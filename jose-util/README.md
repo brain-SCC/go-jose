@@ -36,7 +36,7 @@ DER or JWK formats.
 
 We've added an `encrypt` flag  `--kty` to specify encrypted content. 
 If compact mode is detected, the additional header `zip` with value `DEF` is set.
-We not set `kid` header for JSONWebKey instances. 
+We now set `kid` header for JSONWebKey instances. 
 
 ## Testing
 
