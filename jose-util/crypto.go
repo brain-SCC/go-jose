@@ -30,9 +30,14 @@ func encrypt() {
 	kty := jose.ContentType(*encryptKtyFlag)
 	var opt jose.EncrypterOptions
 
-	switch v := pub.(type) {
+	switch encryptionKey := pub.(type) {
 	case jose.JSONWebKey:
-		opt.WithHeader("kid", pub.KeyID)
+		opt.WithHeader("kid", encryptionKey.KeyID)
+	case *jose.JSONWebKey:
+		opt.WithHeader("kid", encryptionKey.KeyID)
+	case jose.OpaqueKeyEncrypter:
+		opt.WithHeader("kid", encryptionKey.KeyID())
+	default:
 	}
 
 	crypter, err := jose.NewEncrypter(enc, jose.Recipient{Algorithm: alg, Key: pub}, opt.WithContentType(kty))
