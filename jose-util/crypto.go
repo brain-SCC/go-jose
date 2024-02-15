@@ -42,6 +42,9 @@ func encrypt() {
 	default:
 	}
 
+	// hard coded compression header
+	opts = opts.WithHeader("zip", "DEF")
+
 	crypter, err := jose.NewEncrypter(enc, jose.Recipient{Algorithm: alg, Key: pub}, opts)
 	app.FatalIfError(err, "unable to instantiate encrypter")
 
